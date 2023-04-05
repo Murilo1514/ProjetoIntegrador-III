@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var TextSPL: AppCompatEditText
     private lateinit var btStart: AppCompatButton
     private lateinit var alerta: AppCompatTextView
+    private lateinit var btStop: AppCompatButton
 
     private val RECORD_AUDIO_PERMISSION_REQUEST_CODE = 1
     private val referencia = 2e-5
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     var recebeDB = 0.0
     var decibel = ""
     val nivelDeAlerta = 65.00
-    var dbTexto = "DB"
+    var dbTexto = " db"
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -60,12 +61,18 @@ class MainActivity : AppCompatActivity() {
         TextSPL = findViewById(R.id.TextSPL)
         btStart = findViewById(R.id.btStart)
         alerta = findViewById(R.id.alerta)
+        btStop = findViewById(R.id.btStop)
 
-        handler.postDelayed(runnable,1)
+
 
         btStart.setOnClickListener {
+            handler.postDelayed(runnable,1)
+        }
+
+        btStop.setOnClickListener{
+            handler.removeCallbacks(runnable)
             TextSPL.text!!.clear()
-            TextSPL.text?.append(calculateSPL().toString())
+
         }
     }
 
